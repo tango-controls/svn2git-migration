@@ -251,21 +251,23 @@ TODO: 'Use this section for listing potential issues and problems which will / c
 
 ### Roadmap
 
-TODO: 'Need to have some estimates of time needed for the different steps and a deadline by when the first move could be done'
+The following roadmap applies from Day0 (day from which the green-light is given). Note that it can be applied first to a subgroup of projects and then repeated for a different subgroup. We propose to start by applying this to tango-cs (it could even be split in subgroups inside tango-cs, but that would complicate the management of the lock on commits and tickets in SF.net).
 
-Migration will be done in 3 steps:
+- Day 0: Compile the list of svn subprojects (using [svn_find_subrepos.sh](utils/svn_find_subrepos.sh)). For example([List for tango-cs](utils/tango-cs-subrepos.txt) and [List for tango-ds](utils/tango-ds-subrepos.txt))
+- Day 0: Create map(s) from the above paths to proposed github repo names and metadata (by default, the github name can be the basename of each svn-subrepo path and the rest can be used as additional info for the description)
+- Day 0 to Day 14: Circulation of the map(s) among Tango developers for manual tweaking. The changes can be managed as pull requests. Identify projects "with special needs"  (e.g. git repos that should merge more than one svn subrepo) and remove them from the auto-migration list.
+- Day 15: Lock commits and ticket creation on SF.net
+- Day 15: Automatic bulk-migration of repos using [pyGitHub.py](utils/pyGitHub.py)
+- Day 16: Automatic migration of tickets of auto-created repos
+- Day 16 to ??: Manual migration of "special needs" projects
 
-- Compilation of a map from svn subprojects to github project names and metadata. See Appendix II.
-- Circulation of the map among Tango developers for manual tweaking
-- Use of the map to feed [a script](https://github.com/gjover/pyGitHub) that automatically creates the repos
-- Migration of tickets to newly created repos
-
-These steps could be done at different times for subgroups of repos (e.g., the core, certain DSs,...)
 
 ### Questions to be answered by the Tango Steering Committee:
 
 - Who are the nominated members  from each institute to be appointed as "admins" for the core repos (at least 2/institute)?
-- Is the Plan accepted?
+- Is the Roadmap accepted?
+  - Which are the subgroups for implementation of the roadmap?
+  - Which is the "Day0" for each subgroup?
 
 ### References
 
@@ -283,22 +285,4 @@ Let's consider the Tango C++ core:
 
 
 
-### APPENDIX II: Tango subproject lists
-
-Below are links to two lists of paths of svn subprojects (one for tango-cs and one for tango-ds). They are just the raw output of running [this script](https://gist.github.com/cpascual/7d943f7a45cac25c1675bbeae9360be7) on the root of tango-cs and tango-ds checkouts.
-
-Tango-cs:
-
-  [https://gist.github.com/gjover/179008cc9fac132104fc4d363f692ab0](https://gist.github.com/gjover/179008cc9fac132104fc4d363f692ab0)
-
-
-Tango-ds:
-
-[https://gist.github.com/gjover/283d609801e86b4dffa98a79c4f1728a](https://gist.github.com/gjover/283d609801e86b4dffa98a79c4f1728a)
-
-NOTE: 'The tango-dss list was done on a non-up-to-date checkout of tango-ds due to problems in updating it (reported on tango mailing list). Use it as an example only.'
-
-I suggest that we use the result of applying `basename` to each path as the initial proposed github repo name.
-
-Note that these lists, being " [gists](https://gist.github.com/)", are themselves version-controlled, so they can be updated and even used for circulating them and requesting comments.
 
