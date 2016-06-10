@@ -10,7 +10,35 @@ This document is a proposal to migrate the Tango control system and device serve
 
 ### Motivation
 
-_Motivation to migrate to git_
+A quick survey of the web will show find extensive literature explaining
+why git is better than SVN. But why should Tango migrate to Git? Would Tango be
+able to benefit from the advantages provided by git at all? The authors of this
+proposal are firmly convinced that the Tango project will profit from a git based
+version control system.
+
+Currently, contributing to any of the Tango core projects is difficult and error
+prone. Since it is virtually impossible to manage all possible contributors as
+members of the tango-cs source forge (SF) project, in general, a contribution
+implies attaching a patch file to a ticket which needs to be downloaded and
+verified by an integrator, which will commit the change with his identity to SVN.
+This last step poses a problem because the project just lost track of who
+actually did the modification.
+
+With git and friends, the repository can be forked by the contributer and a
+pull request (PR) can be made. After being accepted by the integrator,
+the information about both the contributer(s) and integrator will be stored
+as well in git. Another advantage is that the PR can be discussed openly and
+developers can even comment on specific lines of code, making code reviews a
+natural part of the development process.
+
+As part of their development strategy, many of the institutes using tango
+prefer to stabilize their tango major version for relatively long periods.
+Tango bug fixes are usually applied on the current development branch. The
+development cost of backporting the same fix to older tango versions is
+forbiddenly high with SVN. As a consequence, institutes that are not able
+to follow the latest development version of Tango cannot profit possibly
+important bug fixes that could have been easily made with a git cherry-pick.
+
 
 ### Platform
 
