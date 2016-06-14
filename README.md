@@ -65,9 +65,84 @@ These guidelines should be applicable even for the smallest projects (even with 
   2. More complex projects may require to simultaneously maintain more than one release (e.g. Tango may choose to support bugfixes in Tango9 even after Tango10 is released). In this case, releases may be done on release branches starting from master (see APPENDIX I for an example)
 6. [Semantic versioning](http://semver.org/) is recommended.
 7. **Public** automatic testing/continuous integration (e.g., via [Travis](https://travis-ci.org/)) is recommended
-8. 8.The main development **should** be done on the tango-controls hosted project (as opposed to using a private organization project and just pushing to the tango-controls repo from time to time). This allows for public visibility of the latest development and issues and encourages sharing and reuse. If a given organization needs special tweaks or has particular release/testing cycles, the recommendation is that the organization forks from the "canonical" repo
+8. The main development **should** be done on the tango-controls hosted project (as opposed to using a private organization project and just pushing to the tango-controls repo from time to time). This allows for public visibility of the latest development and issues and encourages sharing and reuse. If a given organization needs special tweaks or has particular release/testing cycles, the recommendation is that the organization forks from the "canonical" repo
 
 ### Tickets
+
+Tickets only exist in the tango-cs Sourceforge project. There is no ticket in the tango-ds project.
+
+A slightly modified version of the following script can be used to migrate automatically tickets from a Sourceforge project to a github repository:[https://github.com/cmungall/gosf2github](https://github.com/cmungall/gosf2github).
+
+This script has been modified in order to leave the unassigned tickets unassigned after the migration.
+It is using the GitHub API for importing issues.
+
+The main difficulty of the migration will be to split the Sourceforge tickets and assign them to the different newly created Github repositories.
+
+The ticket migration will be done project per project (from a tango-cs subsystem to a corresponding Github repository).
+
+The requirements for the tickets migration of a specific subsystem from tango-cs are the following:
+ * The GitHub repository for the project must have been created
+ * The list of tickets to be migrated must be communicated to the person in charge of the migration. This can be specified using complex expressions like “All the tickets belonging to Sourceforge ticket category Astor and Starter and all the tickets having labels Astor and starter device server or Starter and tickets #123 and #345, except all the tickets having label Astor” for instance.
+ * The persons currently having tickets from the previous ticket list assigned to them on Sourceforge must have a GitHub account and be registered as collaborator of the newly created Github project with admin permissions before the migration. This will ensure the newly created GitHub issues will be automatically assigned to the correct person during the migration. Some tools have been developed to get the list of assignees from a list of tickets.
+ * A generic github account like the following will be used to migrate the tickets: [https://github.com/tango-tickets-migrator[(https://github.com/tango-tickets-migrator). This account will need to be registered as collaborator of each target repository with admin rights.
+
+#### Limitations
+
+All issues and comments will appear to originate from the tango-tickets-migrator user but the original author will be specified in the comments and issue description.
+
+If the original assignee does not have a github account or is not registered as collaborator on the github repository, the ticket will be assigned to the tango-ticket-migrator user.
+
+The tickets assigned to people no longer involved in the Tango community will be assigned to the tango-tickets-migrator user.
+A link to the original ticket is automatically added in the description of each migrated github issue.
+
+The migrating script does not support attachments. It might be possible to add a link to the original attachment but this will require to hack the migrating script. Since there is already a link to the original ticket in the description of the imported issues, the steering committee should decide whether having this link would be sufficient or we should put more effort to find a way to import the attachments too.
+
+#### Example
+
+The results of the first tests are available on the following link:
+
+[https://github.com/tango-controls-migration-tests/sf2github/issues](https://github.com/tango-controls-migration-tests/sf2github/issues)
+In this first test, all the tickets from tango-cs (older than 25th May 2016) have been migrated to this sf2github single repository. Only Emmanuel Taurel, Tiago Coutinho and Reynald Bourtembourg were configured as collaborators of this repository when the script was executed. This is why all the Sourceforge tickets which are assigned to someone different than Emmanuel, Tiago or Reynald have been assigned to the tango-tickets-migrator user.
+
+### Risks
+
+TODO: 'Use this section for listing potential issues and problems which will / could be encountered']
+
+### Roadmap
+
+The following roadmap applies from Day0 (day from which the green-light is given). Note that it can be applied first to a subgroup of projects and then repeated for a different subgroup. We propose to start by applying this to tango-cs (it could even be split in subgroups inside tango-cs, but that would complicate the management of the lock on commits and tickets in SF.net).
+
+- Day 0: Compile the list of svn subprojects (using [svn_find_subrepos.sh](utils/svn_find_subrepos.sh)). For example([List for tango-cs](utils/tango-cs-subrepos.txt) and [List for tango-ds](utils/tango-ds-subrepos.txt))
+- Day 0: Create map(s) from the above paths to proposed github repo names and metadata (by default, the github name can be the basename of each svn-subrepo path and the rest can be used as additional info for the description)
+- Day 0 to Day 14: Circulation of the map(s) among Tango developers for manual tweaking. The changes can be managed as pull requests. Identify projects "with special needs"  (e.g. git repos that should merge more than one svn subrepo) and remove them from the auto-migration list.
+- Day 15: Lock commits and ticket creation on SF.net
+- Day 15: Automatic bulk-migration of repos using [pyGitHub.py](utils/pyGitHub.py)
+- Day 16: Automatic migration of tickets of auto-created repos
+- Day 16 to ??: Manual migration of "special needs" projects
+
+
+### Questions to be answered by the Tango Steering Committee:
+
+- Who are the nominated members  from each institute to be appointed as "admins" for the core repos (at least 2/institute)?
+- Is the Roadmap accepted?
+  - Which are the subgroups for implementation of the roadmap?
+  - Which is the "Day0" for each subgroup?
+
+### References
+
+### APPENDIX I:  Workflow example maintaining multiple releases
+
+Let's consider the Tango C++ core:
+
+- Let's assume that the latest commit in the master branch is tagged, for example, as "9.2.1".
+- Now someone starts working on Tango10 and starts a feature branch (in the same repo or in a personal fork).
+- Meanwhile some critical bug is discovered and fixed for Tango9,  which implies a pull request and a new commit to master tagged as "9.2.2".
+- When the work on the Tango 10 feature branch is finished, a pull request is submitted and eventually accepted. Now the latest commit in master will be tagged "10.0.0".
+- After that, a new critical bug affecting **both** Tango9 and Tango10 is discovered and a patch provided (for simplicity let's assume that the patch works on both). The Tango team decides that it is worth supporting the Tango9 users, so:
+  - a new branch called "9.x" is branched off the "9.2.2" commit, the patch is committed to it (via a pull request) and the commit tagged as "9.2.3"
+  - The patch is also applied on master (via a pull request) and the latest master commit is then tagged "10.0.1"
+
+### APPENDIX II: Tickets migration technical details
 
 Tickets only exist in the tango-cs Sourceforge project. There is no ticket in the tango-ds project.
 
@@ -75,20 +150,20 @@ The following script can be used to migrate automatically tickets from a Sourcef
 
 In order to work as expected, the script requires the following:
 
-- ●●The tickets must have been exported from Sourceforge using the admin page: [https://sourceforge.net/p/tango-cs/admin/export](https://sourceforge.net/p/tango-cs/admin/export).
+ * The tickets must have been exported from Sourceforge using the admin page: [https://sourceforge.net/p/tango-cs/admin/export](https://sourceforge.net/p/tango-cs/admin/export).
 
 In the exported files, 2 files are important:
 
-o   feature-requests.json containing all the tango-cs feature requests tickets
+  * feature-requests.json containing all the tango-cs feature requests tickets
 
-o   bugs.json containing all the tango-cs bugs tickets
+  * bugs.json containing all the tango-cs bugs tickets
 
 A new json file containing only the bugs tickets relevant to the new github repository will have to be created from the bugs.json file.
 
 Similarly a new json file containing only the feature requests tickets relevant to the new github repository will have to be created from the feature-request.json file.
 
-- A JSON file containing the mapping of Sourceforge usernames to GitHub usernames. So we might need to ensure that all the important users have created a Github account.
-- An OAuth token has to be given to the script. It is possible to get one here:
+ * A JSON file containing the mapping of Sourceforge usernames to GitHub usernames. So we might need to ensure that all the important users have created a Github account.
+ * An OAuth token has to be given to the script. It is possible to get one here:
 
 [https://github.com/settings/tokens](https://github.com/settings/tokens)
 
@@ -96,7 +171,7 @@ Note that all tickets and issues will appear to originate from the user that gen
 
 Important: make sure the token has the public_repo scope.
 
-- A JSON file containing the list of collaborators for this repository.
+ * A JSON file containing the list of collaborators for this repository.
 
 Please note that this is required in order to be able to automatically assign github issues to the correct person.
 
@@ -106,7 +181,7 @@ This file can be generated with the following command:
 
 curl -H "Authorization: token _TOKEN_" https://api.github.com/repos/tango-controls/_theRepository_/collaborators > sf-test-collab.json
 
-- A generic github account like the following will be used to migrate the tickets: [https://github.com/tango-tickets-migrator](https://github.com/tango-tickets-migrator)
+ * A generic github account like the following will be used to migrate the tickets: [https://github.com/tango-tickets-migrator](https://github.com/tango-tickets-migrator)
 
 This generic user must be part of the list of collaborators for each github target repository with admin rights.
 
@@ -125,10 +200,6 @@ The results of the first tests are available on the following link:
 [https://github.com/tango-controls-migration-tests/sf2github/issues](https://github.com/tango-controls-migration-tests/sf2github/issues)
 
 In this first test, all the tickets from tango-cs have been migrated to this sf2github single repository. Only Emmanuel Taurel, Tiago Coutinho and Reynald Bourtembourg were configured as collaborators of this repository when the script was executed. This is why all the Sourceforge tickets which are assigned to someone different than Emmanuel, Tiago or Reynald have been assigned to the tango-tickets-migrator user.
-
-
-
-
 
 Here is the list of all the persons having a tango-cs sourceforge ticket assigned to them (as of 25/05/2016):
 
@@ -272,45 +343,3 @@ Here is the list of tango-cs Sourceforge ticket categories:
 | Taurus |   |
 
 Please note that some tickets haven't been assigned to any category. Some tickets have labels assigned but no category and vice versa.
-
-### Risks
-
-TODO: 'Use this section for listing potential issues and problems which will / could be encountered']
-
-### Roadmap
-
-The following roadmap applies from Day0 (day from which the green-light is given). Note that it can be applied first to a subgroup of projects and then repeated for a different subgroup. We propose to start by applying this to tango-cs (it could even be split in subgroups inside tango-cs, but that would complicate the management of the lock on commits and tickets in SF.net).
-
-- Day 0: Compile the list of svn subprojects (using [svn_find_subrepos.sh](utils/svn_find_subrepos.sh)). For example([List for tango-cs](utils/tango-cs-subrepos.txt) and [List for tango-ds](utils/tango-ds-subrepos.txt))
-- Day 0: Create map(s) from the above paths to proposed github repo names and metadata (by default, the github name can be the basename of each svn-subrepo path and the rest can be used as additional info for the description)
-- Day 0 to Day 14: Circulation of the map(s) among Tango developers for manual tweaking. The changes can be managed as pull requests. Identify projects "with special needs"  (e.g. git repos that should merge more than one svn subrepo) and remove them from the auto-migration list.
-- Day 15: Lock commits and ticket creation on SF.net
-- Day 15: Automatic bulk-migration of repos using [pyGitHub.py](utils/pyGitHub.py)
-- Day 16: Automatic migration of tickets of auto-created repos
-- Day 16 to ??: Manual migration of "special needs" projects
-
-
-### Questions to be answered by the Tango Steering Committee:
-
-- Who are the nominated members  from each institute to be appointed as "admins" for the core repos (at least 2/institute)?
-- Is the Roadmap accepted?
-  - Which are the subgroups for implementation of the roadmap?
-  - Which is the "Day0" for each subgroup?
-
-### References
-
-### APPENDIX I:  Workflow example maintaining multiple releases
-
-Let's consider the Tango C++ core:
-
-- Let's assume that the latest commit in the master branch is tagged, for example, as "9.2.1".
-- Now someone starts working on Tango10 and starts a feature branch (in the same repo or in a personal fork).
-- Meanwhile some critical bug is discovered and fixed for Tango9,  which implies a pull request and a new commit to master tagged as "9.2.2".
-- When the work on the Tango 10 feature branch is finished, a pull request is submitted and eventually accepted. Now the latest commit in master will be tagged "10.0.0".
-- After that, a new critical bug affecting **both** Tango9 and Tango10 is discovered and a patch provided (for simplicity let's assume that the patch works on both). The Tango team decides that it is worth supporting the Tango9 users, so:
-  - a new branch called "9.x" is branched off the "9.2.2" commit, the patch is committed to it (via a pull request) and the commit tagged as "9.2.3"
-  - The patch is also applied on master (via a pull request) and the latest master commit is then tagged "10.0.1"
-
-
-
-
