@@ -102,11 +102,23 @@ The migrating script does not support attachments. It might be possible to add a
 The results of the first tests are available on the following link:
 
 [https://github.com/tango-controls-migration-tests/sf2github/issues](https://github.com/tango-controls-migration-tests/sf2github/issues)
+
 In this first test, all the tickets from tango-cs (older than 25th May 2016) have been migrated to this sf2github single repository. Only Emmanuel Taurel, Tiago Coutinho and Reynald Bourtembourg were configured as collaborators of this repository when the script was executed. This is why all the Sourceforge tickets which are assigned to someone different than Emmanuel, Tiago or Reynald have been assigned to the tango-tickets-migrator user.
 
 ### Risks
 
 TODO: 'Use this section for listing potential issues and problems which will / could be encountered']
+
+Only the subversion directories respecting the TTB pattern (Containing trunk, tags and branches directories) can be migrated smoothly to git with the available tools. This means that the files in subversion which do not have a directory named trunk, tags or branches in their parent directories (for instance: files in archiving/hdb++ directory) will need a special treatment to ensure they are also migrated. This treatment might vary from one project to another. For some projects, it might be necessary to restructure the subversion directories before the migration. For some other projects, it might be necessary to create a new separate git repository for these directories, which we might need to merge to another git repository afterwards.
+
+Here is the list of files from tango-cs which are not under the TTB pattern (which do not have a directory named trunk, branches or tags in their parent directories):
+ * All the files under tools/ pogo/xpand directory
+ * All the files under gui/hdbextractor-qt directory
+ * Some files under archiving/hdb++ directory
+ * All the files under archiving/hdb++/etc directory
+ * All the zip files from archiving/tool/AlarmArchivingGUI/delivery directory
+
+Another risk is linked to the fact that the [external definitions](http://structure.usc.edu/svn/svn.advanced.externals.html) feature from subversion was used in some directories under the distrib directory. We need to find the right way to handle this special case.
 
 ### Roadmap
 
