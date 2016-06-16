@@ -111,12 +111,13 @@ TODO: 'Use this section for listing potential issues and problems which will / c
 
 Only the subversion directories respecting the TTB pattern (Containing trunk, tags and branches directories) can be migrated smoothly to git with the available tools. This means that the files in subversion which do not have a directory named trunk, tags or branches in their parent directories (for instance: files in archiving/hdb++ directory) will need a special treatment to ensure they are also migrated. This treatment might vary from one project to another. For some projects, it might be necessary to restructure the subversion directories before the migration. For some other projects, it might be necessary to create a new separate git repository for these directories, which we might need to merge to another git repository afterwards.
 
-Here is the list of files from tango-cs which are not under the TTB pattern (which do not have a directory named trunk, branches or tags in their parent directories):
- * All the files under tools/ pogo/xpand directory
- * All the files under gui/hdbextractor-qt directory
- * Some files under archiving/hdb++ directory
- * All the files under archiving/hdb++/etc directory
- * All the zip files from archiving/tool/AlarmArchivingGUI/delivery directory
+The list of files from tango-ds which are not under the TTB pattern (which do not have a directory named trunk, branches or tags in their parent directories) are listed in the following gist:
+
+[https://gist.github.com/bourtemb/49feb682806877177eaff7953869b213](https://gist.github.com/bourtemb/49feb682806877177eaff7953869b213).
+
+The ones from tango-cs are listed in the following gist:
+
+[https://gist.github.com/bourtemb/c3d3c89d5b6a41ac6a1b475d759c9b6d](https://gist.github.com/bourtemb/c3d3c89d5b6a41ac6a1b475d759c9b6d)
 
 Another risk is linked to the fact that the [external definitions](http://structure.usc.edu/svn/svn.advanced.externals.html) feature from subversion was used in some directories under the distrib directory. We need to find the right way to handle this special case.
 
