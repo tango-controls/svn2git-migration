@@ -84,7 +84,7 @@ The requirements for the tickets migration of a specific subsystem from tango-cs
  * The GitHub repository for the project must have been created
  * The list of tickets to be migrated must be communicated to the person in charge of the migration. This can be specified using complex expressions like “All the tickets belonging to Sourceforge ticket category Astor and Starter and all the tickets having labels Astor and starter device server or Starter and tickets #123 and #345, except all the tickets having label Astor” for instance.
  * The persons currently having tickets from the previous ticket list assigned to them on Sourceforge must have a GitHub account and be registered as collaborator of the newly created Github project with admin permissions before the migration. This will ensure the newly created GitHub issues will be automatically assigned to the correct person during the migration. Some tools have been developed to get the list of assignees from a list of tickets.
- * A generic github account like the following will be used to migrate the tickets: [https://github.com/tango-tickets-migrator[(https://github.com/tango-tickets-migrator). This account will need to be registered as collaborator of each target repository with admin rights.
+ * A generic github account like the following will be used to migrate the tickets: [https://github.com/tango-tickets-migrator](https://github.com/tango-tickets-migrator). This account will need to be registered as collaborator of each target repository with admin rights.
 
 #### Limitations
 
