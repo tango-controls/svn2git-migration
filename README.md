@@ -128,9 +128,10 @@ The following roadmap applies from Day0 (day from which the green-light is given
 - Day 0: Compile the list of svn subprojects (using [svn_find_subrepos.sh](utils/svn_find_subrepos.sh)). For example([List for tango-cs](utils/tango-cs-subrepos.txt) and [List for tango-ds](utils/tango-ds-subrepos.txt))
 - Day 0: Create map(s) from the above paths to proposed github repo names and metadata (by default, the github name can be the basename of each svn-subrepo path and the rest can be used as additional info for the description)
 - Day 0 to Day 14: Circulation of the map(s) among Tango developers for manual tweaking. The changes can be managed as pull requests. Identify projects "with special needs"  (e.g. git repos that should merge more than one svn subrepo) and remove them from the auto-migration list.
+- Day 0 to Day 15: Identification of the set of tickets to be migrated for each project.
 - Day 15: Lock commits and ticket creation on SF.net
 - Day 15: Automatic bulk-migration of repos using [pyGitHub.py](utils/pyGitHub.py)
-- Day 16: Automatic migration of tickets of auto-created repos
+- Day 16: Semi-Automatic migration of tickets of auto-created repos
 - Day 16 to ??: Manual migration of "special needs" projects
 
 
