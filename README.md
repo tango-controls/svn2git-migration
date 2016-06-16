@@ -105,9 +105,11 @@ The results of the first tests are available on the following link:
 
 In this first test, all the tickets from tango-cs (older than 25th May 2016) have been migrated to this sf2github single repository. Only Emmanuel Taurel, Tiago Coutinho and Reynald Bourtembourg were configured as collaborators of this repository when the script was executed. This is why all the Sourceforge tickets which are assigned to someone different than Emmanuel, Tiago or Reynald have been assigned to the tango-tickets-migrator user.
 
-### Risks
+### Todo
 
-TODO: 'Use this section for listing potential issues and problems which will / could be encountered']
+[pyGitHub.py](utils/pyGitHub.py) script should be improved to actually do the real migration from svn to git for a given project using the [GitHub source import API](https://developer.github.com/v3/migration/source_imports).
+
+### Risks
 
 Only the subversion directories respecting the TTB pattern (Containing trunk, tags and branches directories) can be migrated smoothly to git with the available tools. This means that the files in subversion which do not have a directory named trunk, tags or branches in their parent directories (for instance: files in archiving/hdb++ directory) will need a special treatment to ensure they are also migrated. This treatment might vary from one project to another. For some projects, it might be necessary to restructure the subversion directories before the migration. For some other projects, it might be necessary to create a new separate git repository for these directories, which we might need to merge to another git repository afterwards.
 
@@ -133,7 +135,6 @@ The following roadmap applies from Day0 (day from which the green-light is given
 - Day 15: Automatic bulk-migration of repos using [pyGitHub.py](utils/pyGitHub.py)
 - Day 16: Semi-Automatic migration of tickets of auto-created repos
 - Day 16 to ??: Manual migration of "special needs" projects
-
 
 ### Questions to be answered by the Tango Steering Committee:
 
