@@ -221,9 +221,9 @@ Here is the list of all the persons having a tango-cs sourceforge ticket assigne
 | **Sourceforge login** | **Github login** | **Full name** | **e-mail address** |
 | --- | --- | --- | --- |
 | pascal\_verdier |  Pascal-Verdier | Pascal Verdier | verdier@esrf.fr |
-| nleclercq |   | Nicolas Leclercq | nicolas.leclercq@synchrotron-soleil.fr |
+| nleclercq | nleclercq  | Nicolas Leclercq | nicolas.leclercq@synchrotron-soleil.fr |
 | taurel | taurel | Emmanuel Taurel | taurel@esrf.fr |
-| ingvord |   | Igor Khorkhriakov | Igor.Khokhriakov@hzg.de |
+| ingvord | Ingvord  | Igor Khorkhriakov | Igor.Khokhriakov@hzg.de |
 | trogucki | nobody | Thomas Rogucki | No longer in Tango community |
 | poncet |   | Faranguiss Poncet | poncet@esrf.fr |
 | klenov |   | Ludmila Klenov | ludmila.klenov@synchrotron-soleil.fr |
