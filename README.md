@@ -359,3 +359,29 @@ Here is the list of tango-cs Sourceforge ticket categories:
 | Taurus |   |
 
 Please note that some tickets haven't been assigned to any category. Some tickets have labels assigned but no category and vice versa.
+
+### APPENDIX III: move&merge procedure
+
+Here is an adjusted history from bash, can be used for scripting in the future:
+
+```
+$  mkdir cppTango
+$  cd cppTango/
+$  git init
+$  git commit --allow-empty -m "Initial commit"
+$  git remote add cppapi git@github.com:Ingvord/cppapi.git
+# fetch remote repo with tags
+$  git fetch --tags cppapi
+# rename remote tags to <prefix>_tag
+$  git ls-remote --tags cppapi | grep -oP 'refs/tags/(\w*)' | cut -c11- | xargs -I'{}' git tag cppapi_{} {}
+# delete remote tags
+$  git ls-remote --tags cppapi | grep -oP 'refs/tags/(\w*)' | cut -c11- | xargs -I'{}' git tag -d {}
+# import remote repo branch with history
+$  git filter-branch -f --index-filter 'git ls-files -s | sed "s%\t\"*%&'"cppapi"'/%" | GIT_INDEX_FILE=$GIT_INDEX_FILE.new git update-index --index-info && mv "$GIT_INDEX_FILE.new" "$GIT_INDEX_FILE"' "log4tango/master"
+$  git merge -m "Merge cppapi" "cppapi/Tango_900"
+# repeat for other repos...
+#
+$ remote add origin git@github.com:tango-controls/cppTango.git
+# finally push everything to the new origin
+$  git push --tags -u origin master
+```
