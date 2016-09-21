@@ -1,4 +1,4 @@
-# DRAFT STAGE. Subject to discussion and change
+# MOVE IN PROGRESS. Feedback welcomed
 
 
 
@@ -6,11 +6,12 @@
 
 Authors: [cpascual@cells.es](mailto:cpascual@cells.es), [gjover@cells.es](mailto:gjover@cells.es), [gcuni@cells.es](mailto:gcuni@cells.es), [coutinho@esrf.fr](mailto:coutinho@esrf.fr), [reynald.bourtembourg@esrf.fr](mailto:reynald.bourtembourg@esrf.fr), [antonio.milan\_otero@maxiv.lu.se](mailto:antonio.milan_otero@maxiv.lu.se), [vincent.hardion@maxiv.lu.se](mailto:vincent.hardion@maxiv.lu.se)
 
-This document is a proposal to migrate the Tango control system and device servers from the source forge SVN repositories to a git based system.
+**This proposal (below) to migrate the Tango control system and device servers from the source forge SVN repositories to a git based system has been voted by the Tango Controls steering committee and is being (Fall 2016) implemented here :**
+https://github.com/tango-controls
 
 ### Motivation
 
-A quick survey of the web will show find extensive literature explaining
+A quick survey of the web will shdow find extensive literature explaining
 why git is better than SVN. But why should Tango migrate to Git? Would Tango be
 able to benefit from the advantages provided by git at all? The authors of this
 proposal are firmly convinced that the Tango project will profit from a git based
