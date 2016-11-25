@@ -142,7 +142,7 @@ foreach my $ticket (@tickets) {
 
     # it is tempting to prefix with '@' but this may generate spam and get the bot banned
     #$body .= "\n\nOriginal comment by: \@".map_user($ticket->{reported_by});
-    $body .= "\n\nReported by: ".map_user($ticket->{reported_by});
+    $body .= "\n\nReported by: ".map_user($ticket->{reported_by})." ( http://sf.net/u/$ticket->{reported_by} )";
 
     my $num = $ticket->{ticket_num};
     printf "Ticket: ticket_num: %d of %d total (last ticket_num=%d)\n", $num, scalar(@tickets), $tickets[-1]->{ticket_num};
@@ -191,7 +191,7 @@ foreach my $ticket (@tickets) {
         my $comment =
         {
             "created_at" => cvt_time($post->{timestamp}),
-            "body" => $post->{text}."\n\nOriginal comment by: ".map_user($post->{author}),
+            "body" => $post->{text}."\n\nOriginal comment by: ".map_user($post->{author})." (http://sourceforge.net/u/$post->{author})",
         };
         push(@comments, $comment);
     }

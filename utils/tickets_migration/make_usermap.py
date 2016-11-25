@@ -39,7 +39,7 @@ def main(argv):
     print
     for name in sorted((authors or reporters) - assignees):
         print ' "{name}" : "[{name} @SF](http:/sf.net/u/{name})",'.format(name=name)
-    print'}'
+    print '}'
 
 
 
